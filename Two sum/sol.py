@@ -1,23 +1,16 @@
-def twoSum(list_num, target):
-        idx_lst = []
-        for idx in range(len(list_num)):
-            num1 = list_num[idx]
-            for idx2 in range(len(list_num)):
-                num2 = list_num[idx2]
-                if idx == idx2:
-                    continue
+def twoSum(nums, target):
+        know_val = {}
+        final_lst = []
+        for (idx, num) in enumerate(nums):
+            rest = target - num
+            if rest in know_val:
+                if idx < know_val[rest]:
+                    final_lst.append(idx)
+                    final_lst.append(know_val[rest])
                 else:
-                    sum = num1 + num2
-                    if sum == target:
-                        idx_lst.append(idx)
-                        idx_lst.append(idx2)
-                        return idx_lst  
-
-
-# test
-
-a = [2,7,11,15]
-a2 = [15,7,2,11]
-b = 9
-
-print(twoSum(a2,b))
+                    final_lst.append(know_val[rest])
+                    final_lst.append(idx)
+                return final_lst               
+            else:
+                know_val[num] = idx
+        
